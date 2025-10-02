@@ -10,6 +10,7 @@ namespace SnowballGame1251
     {
         static void Main(string[] args)
         {
+            //trial commit
         }
     }
 }
