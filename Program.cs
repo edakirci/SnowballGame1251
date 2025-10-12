@@ -27,8 +27,30 @@ namespace PBL1_SnowballGame
             {
             }
 
+            Console.CursorVisible = false;
 
             Random random = new Random();
+            //x coordinates of players and walls
+            int blueThrowerX = 0;
+            int blueThrowerY = 0;
+            int redThrowerX = 0;
+            int redThrowerY = 0;
+            int blueSnowman1X = 0;
+            int blueSnowman1Y = 0;
+            int blueSnowman2X = 0;
+            int blueSnowman2Y = 0;
+            int redSnowman1X = 0;
+            int redSnowman1Y = 0;
+            int redSnowman2X = 0;
+            int redSnowman2Y = 0;
+            int wall1X = 0;
+            int wall1Y = 0;
+            int wall2X = 0;
+            int wall2Y = 0;
+
+            int lengthWall1 = 0;
+            int lengthWall2 = 0;
+
 
             //round
             int round = 0;
@@ -40,6 +62,8 @@ namespace PBL1_SnowballGame
             bool isBlueSnowman2OntheGame = true;
             bool isRedSnowman1OntheGame = true;
             bool isRedSnowman2OntheGame = true;
+
+
 
             while ((isBlueSnowman1OntheGame || isBlueSnowman2OntheGame) && (isRedSnowman1OntheGame || isRedSnowman2OntheGame))
             {
@@ -64,19 +88,19 @@ namespace PBL1_SnowballGame
 
                 */
 
-                for (int x = 0; x < 122; x++)
+                for (int a = 0; a < 122; a++)
                 {
-                    Console.SetCursorPosition(x, 0);
+                    Console.SetCursorPosition(a, 0);
                     Console.Write("#");
-                    Console.SetCursorPosition(x, 41);
+                    Console.SetCursorPosition(a, 41);
                     Console.Write("#");
                 }
 
-                for (int y = 0; y < 42; y++)
+                for (int b = 0; b < 42; b++)
                 {
-                    Console.SetCursorPosition(0, y);
+                    Console.SetCursorPosition(0, b);
                     Console.Write("#");
-                    Console.SetCursorPosition(121, y);
+                    Console.SetCursorPosition(121, b);
                     Console.Write("#");
                 }
 
@@ -109,26 +133,7 @@ namespace PBL1_SnowballGame
                 //wind
                 double windSpeed = random.NextDouble() * 4 - 2;
 
-                //x coordinates of players and walls
-                int blueThrowerX = 0;
-                int blueThrowerY = 0;
-                int redThrowerX = 0;
-                int redThrowerY = 0;
-                int blueSnowman1X = 0;
-                int blueSnowman1Y = 0;
-                int blueSnowman2X = 0;
-                int blueSnowman2Y = 0;
-                int redSnowman1X = 0;
-                int redSnowman1Y = 0;
-                int redSnowman2X = 0;
-                int redSnowman2Y = 0;
-                int wall1X = 0;
-                int wall1Y = 0;
-                int wall2X = 0;
-                int wall2Y = 0;
-
-                int lengthWall1 = 0;
-                int lengthWall2 = 0;
+             
 
                 if (round % 3 == 0)
                 {
@@ -156,35 +161,171 @@ namespace PBL1_SnowballGame
                     lengthWall1 = random.Next(3, 7);
                     lengthWall2 = random.Next(3, 7);
 
-                    //adding players and walls on the screen
-                    Console.SetCursorPosition(blueThrowerX, blueThrowerY);
-                    Console.Write(">");
-                    Console.SetCursorPosition(redThrowerX, redThrowerY);
-                    Console.Write("<");
-                    Console.SetCursorPosition(blueSnowman1X, blueSnowman1Y);
-                    Console.Write("A");
-                    Console.SetCursorPosition(blueSnowman2X, blueSnowman2Y);
-                    Console.Write("B");
-                    Console.SetCursorPosition(redSnowman1X, redSnowman1Y);
-                    Console.Write("C");
-                    Console.SetCursorPosition(redSnowman2X, redSnowman2Y);
-                    Console.Write("D");
+                   
 
-                    for (int i = 0; i < lengthWall1; i++)
+                }
+                //bunu ekstradan ekledim çünkü oyun bitince yeni turda duvarlar vs çizilmemiş oluyordu
+                
+                if (blueThrowerX > 0) { Console.SetCursorPosition(blueThrowerX, blueThrowerY); Console.Write(">"); }
+                if (redThrowerX > 0) { Console.SetCursorPosition(redThrowerX, redThrowerY); Console.Write("<"); }
+
+                if (isBlueSnowman1OntheGame) { Console.SetCursorPosition(blueSnowman1X, blueSnowman1Y); Console.Write("A"); }
+                if (isBlueSnowman2OntheGame) { Console.SetCursorPosition(blueSnowman2X, blueSnowman2Y); Console.Write("B"); }
+                if (isRedSnowman1OntheGame) { Console.SetCursorPosition(redSnowman1X, redSnowman1Y); Console.Write("C"); }
+                if (isRedSnowman2OntheGame) { Console.SetCursorPosition(redSnowman2X, redSnowman2Y); Console.Write("D"); }
+
+                // walls (yeniden çizmek istersen – opsiyonel, ama flicker yoksa iyi olur)
+                for (int i = 0; i < lengthWall1; i++) { int wy = wall1Y + i; if (wy <= 41) { Console.SetCursorPosition(wall1X, wy); Console.Write("#"); } }
+                for (int i = 0; i < lengthWall2; i++) { int wy = wall2Y + i; if (wy <= 41) { Console.SetCursorPosition(wall2X, wy); Console.Write("#"); } }
+
+
+                Console.SetCursorPosition(1, 42);
+                Console.WriteLine();
+                Console.Write("Enter velocity (5 - 25): ");
+                double velocity;
+                while (!double.TryParse(Console.ReadLine(), out velocity) || velocity < 5 || velocity > 25)
+                {
+                    Console.Write("Invalid input. Enter velocity (5 - 25): ");
+                }
+
+                Console.Write("Enter angle (5 - 85 degrees): ");
+                double angle;
+                while (!double.TryParse(Console.ReadLine(), out angle) || angle < 5 || angle > 85)
+                {
+                    Console.Write("Invalid input. Enter angle (5 - 85): ");
+                }
+
+                
+                Console.WriteLine();
+                Console.WriteLine($"Round: {round + 1}");
+                Console.WriteLine($"Wind: {windSpeed:F2}");
+                Console.WriteLine($"Velocity: {velocity:F2}");
+                Console.WriteLine($"Angle: {angle:F2}");
+                Console.WriteLine("Press any key to continue..."); 
+                
+
+                // atışı kimin yaptığına karar veriyoruz burada (çift round olursa blue tek olursa red yani sırayla)
+                bool blueShoots = (round % 2 == 0);
+                int startX = blueShoots ? blueThrowerX : redThrowerX;
+                int startY = blueShoots ? blueThrowerY : redThrowerY;
+
+                // başlangıc icin hız bileşenleri oluşturdum
+                double rad = angle * Math.PI / 180.0;
+                int dir = blueShoots ? +1 : -1;           // blue sağa red sola atıyor yerlerinden dolayı
+                double vx = dir * velocity * Math.Cos(rad);
+                double vy = -velocity * Math.Sin(rad);   
+
+                double g = 1.0;           
+                double ax = windSpeed;    
+                double dt = 0.10;         
+
+                double x = startX;
+                double y = startY;
+                int maxSteps = 1000;
+                bool hitSomething = false;
+
+                // izi oluşturmak için döngü en mantıklısı geldi
+                for (int step = 0; step < maxSteps; step++)
+                {
+                    // her döngüde bu adıma gelince sürekli yeni konum güncellenecek
+                    int px = (int)Math.Round(x);
+                    int py = (int)Math.Round(y);
+
+                    if (px < 1 || px > 120 || py < 1 || py > 40) break;
+
+                    Console.SetCursorPosition(px, py);
+                    Console.Write(".");
+
+
+                    // çapışmaları bu kısımda kontrol edecek
+
+                    bool hitWall =
+                        (px == wall1X && py >= wall1Y && py < wall1Y + lengthWall1) ||
+                        (px == wall2X && py >= wall2Y && py < wall2Y + lengthWall2);
+
+                    if (hitWall)
                     {
-                        Console.SetCursorPosition(wall1X, wall1Y++);
-                        Console.Write("#");
+                        Console.SetCursorPosition(2, 2);
+                        Console.Write("Hit: Wall   ");
+                        hitSomething = true;
+                        break;
                     }
 
-                    for (int i = 0; i < lengthWall2; i++)
+                    
+                    if (px == blueSnowman1X && py == blueSnowman1Y && isBlueSnowman1OntheGame)
                     {
-                        Console.SetCursorPosition(wall2X, wall2Y++);
-                        Console.Write("#");
+                        isBlueSnowman1OntheGame = false;
+                        Console.SetCursorPosition(2, 3);
+                        Console.Write("Hit: Blue A ");
+                        hitSomething = true;
+                        break;
                     }
+                    if (px == blueSnowman2X && py == blueSnowman2Y && isBlueSnowman2OntheGame)
+                    {
+                        isBlueSnowman2OntheGame = false;
+                        Console.SetCursorPosition(2, 3);
+                        Console.Write("Hit: Blue B ");
+                        hitSomething = true;
+                        break;
+                    }
+                    
+                    if (px == redSnowman1X && py == redSnowman1Y && isRedSnowman1OntheGame)
+                    {
+                        isRedSnowman1OntheGame = false;
+                        Console.SetCursorPosition(2, 3);
+                        Console.Write("Hit: Red C  ");
+                        hitSomething = true;
+                        break;
+                    }
+                    if (px == redSnowman2X && py == redSnowman2Y && isRedSnowman2OntheGame)
+                    {
+                        isRedSnowman2OntheGame = false;
+                        Console.SetCursorPosition(2, 3);
+                        Console.Write("Hit: Red D  ");
+                        hitSomething = true;
+                        break;
+                    }
+
+                    
+                    if (px == blueThrowerX && py == blueThrowerY && isBlueThrowerOntheGame)
+                    {
+                        Console.SetCursorPosition(2, 4);
+                        Console.Write("Hit: Blue Thrower (rest next turn)  ");
+                        hitSomething = true;
+                        break;
+                    }
+                    if (px == redThrowerX && py == redThrowerY && isRedThrowerOntheGame)
+                    {
+                        Console.SetCursorPosition(2, 4);
+                        Console.Write("Hit: Red Thrower (rest next turn)   ");
+                        hitSomething = true;
+                        break;
+                    }
+
+                    // formülleri güncellicez
+                    
+                    vx += ax * dt;     
+                    vy += g * dt;      
+
+                    x += vx * dt;
+                    y += vy * dt;
+
+                  
+                    System.Threading.Thread.Sleep(5);
+
+                    // olmasa da olur ekranın dışına çıktıysa erken donsun dye hızlandırma yapıyor bu satır
+                    if ((px < 1 || px > 120 || py < 1 || py > 40) && step > 10) { break; }
 
                 }
 
-                Console.SetCursorPosition(1, 42);
+
+                Console.SetCursorPosition(2, 5);
+                if (hitSomething) Console.Write("Result: HIT    ");
+                else Console.Write("Result: MISS   ");
+
+                Console.SetCursorPosition(2, 6);
+                Console.Write("Press any key to continue...");
+                Console.ReadKey(true);
                 Console.ReadKey(true);
 
                 round++;
