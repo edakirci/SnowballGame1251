@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PBL1_SnowballGame
+namespace PBL_Eda
 {
     internal class Program
     {
@@ -133,7 +133,7 @@ namespace PBL1_SnowballGame
                 //wind
                 double windSpeed = random.NextDouble() * 4 - 2;
 
-             
+
 
                 if (round % 3 == 0)
                 {
@@ -161,11 +161,11 @@ namespace PBL1_SnowballGame
                     lengthWall1 = random.Next(3, 7);
                     lengthWall2 = random.Next(3, 7);
 
-                   
+
 
                 }
                 //bunu ekstradan ekledim çünkü oyun bitince yeni turda duvarlar vs çizilmemiş oluyordu
-                
+
                 if (blueThrowerX > 0) { Console.SetCursorPosition(blueThrowerX, blueThrowerY); Console.Write(">"); }
                 if (redThrowerX > 0) { Console.SetCursorPosition(redThrowerX, redThrowerY); Console.Write("<"); }
 
@@ -195,14 +195,14 @@ namespace PBL1_SnowballGame
                     Console.Write("Invalid input. Enter angle (5 - 85): ");
                 }
 
-                
+
                 Console.WriteLine();
-                Console.WriteLine($"Round: {round + 1}");
-                Console.WriteLine($"Wind: {windSpeed:F2}");
-                Console.WriteLine($"Velocity: {velocity:F2}");
-                Console.WriteLine($"Angle: {angle:F2}");
-                Console.WriteLine("Press any key to continue..."); 
-                
+                Console.WriteLine("Round: " + (round + 1));
+                Console.WriteLine("Wind: " + windSpeed);
+                Console.WriteLine("Velocity: " + velocity);
+                Console.WriteLine("Angle: " + angle);
+                Console.WriteLine("Press any key to continue...");
+
 
                 // atışı kimin yaptığına karar veriyoruz burada (çift round olursa blue tek olursa red yani sırayla)
                 bool blueShoots = (round % 2 == 0);
@@ -213,11 +213,11 @@ namespace PBL1_SnowballGame
                 double rad = angle * Math.PI / 180.0;
                 int dir = blueShoots ? +1 : -1;           // blue sağa red sola atıyor yerlerinden dolayı
                 double vx = dir * velocity * Math.Cos(rad);
-                double vy = -velocity * Math.Sin(rad);   
+                double vy = -velocity * Math.Sin(rad);
 
-                double g = 1.0;           
-                double ax = windSpeed;    
-                double dt = 0.10;         
+                double g = 1.0;
+                double ax = windSpeed;
+                double dt = 0.10;
 
                 double x = startX;
                 double y = startY;
@@ -227,17 +227,19 @@ namespace PBL1_SnowballGame
                 // izi oluşturmak için döngü en mantıklısı geldi
                 for (int step = 0; step < maxSteps; step++)
                 {
-                    // her döngüde bu adıma gelince sürekli yeni konum güncellenecek
+                    if (step == 0)
+                    {
+                        x += vx * dt;
+                        y += vy * dt;
+                    }
+
                     int px = (int)Math.Round(x);
                     int py = (int)Math.Round(y);
 
                     if (px < 1 || px > 120 || py < 1 || py > 40) break;
 
                     Console.SetCursorPosition(px, py);
-                    Console.Write(".");
-
-
-                    // çapışmaları bu kısımda kontrol edecek
+                    Console.Write("o");
 
                     bool hitWall =
                         (px == wall1X && py >= wall1Y && py < wall1Y + lengthWall1) ||
@@ -251,7 +253,6 @@ namespace PBL1_SnowballGame
                         break;
                     }
 
-                    
                     if (px == blueSnowman1X && py == blueSnowman1Y && isBlueSnowman1OntheGame)
                     {
                         isBlueSnowman1OntheGame = false;
@@ -266,9 +267,9 @@ namespace PBL1_SnowballGame
                         Console.SetCursorPosition(2, 3);
                         Console.Write("Hit: Blue B ");
                         hitSomething = true;
+
                         break;
                     }
-                    
                     if (px == redSnowman1X && py == redSnowman1Y && isRedSnowman1OntheGame)
                     {
                         isRedSnowman1OntheGame = false;
@@ -286,15 +287,14 @@ namespace PBL1_SnowballGame
                         break;
                     }
 
-                    
-                    if (px == blueThrowerX && py == blueThrowerY && isBlueThrowerOntheGame)
+                    if (step > 0 && px == blueThrowerX && py == blueThrowerY && isBlueThrowerOntheGame)
                     {
                         Console.SetCursorPosition(2, 4);
                         Console.Write("Hit: Blue Thrower (rest next turn)  ");
                         hitSomething = true;
                         break;
                     }
-                    if (px == redThrowerX && py == redThrowerY && isRedThrowerOntheGame)
+                    if (step > 0 && px == redThrowerX && py == redThrowerY && isRedThrowerOntheGame)
                     {
                         Console.SetCursorPosition(2, 4);
                         Console.Write("Hit: Red Thrower (rest next turn)   ");
@@ -302,58 +302,18 @@ namespace PBL1_SnowballGame
                         break;
                     }
 
-                    // formülleri güncellicez
-                    
-                    vx += ax * dt;     
-                    vy += g * dt;      
+                    vx += ax * dt;
+                    vy += g * dt;
 
                     x += vx * dt;
                     y += vy * dt;
 
-                  
-                    System.Threading.Thread.Sleep(5);
-
-                    // olmasa da olur ekranın dışına çıktıysa erken donsun dye hızlandırma yapıyor bu satır
-                    if ((px < 1 || px > 120 || py < 1 || py > 40) && step > 10) { break; }
-
+                    System.Threading.Thread.Sleep(8);
                 }
 
 
-                Console.SetCursorPosition(2, 5);
-                if (hitSomething) Console.Write("Result: HIT    ");
-                else Console.Write("Result: MISS   ");
-
-                Console.SetCursorPosition(2, 6);
-                Console.Write("Press any key to continue...");
-                Console.ReadKey(true);
-                Console.ReadKey(true);
-
-                round++;
-
-                /* ()
-                {
-                    isBlueThrowerOntheGame = false;
-                    isRedThrowerOntheGame = false;
-                    isBlueSnowman1OntheGame = false;
-                    isBlueSnowman2OntheGame = false;
-                    isRedSnowman1OntheGame = false;
-                    isRedSnowman2OntheGame = false;
-                }    //if it disappears */
-
-                if (!(isBlueSnowman1OntheGame || isBlueSnowman2OntheGame))
-                {
-                    Console.WriteLine("The winner: red team");
-                }
-
-                if (!(isRedSnowman1OntheGame || isRedSnowman2OntheGame))
-                {
-                    Console.WriteLine("The winner: blue team");
-                }
-
-
+                Console.ReadLine();
             }
-
-            Console.ReadLine();
         }
     }
 }
