@@ -4,17 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PBL_Eda
+namespace LAB4_GROUP5_2021510130_2023510239_2023510038
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            /*Çerçevi çizerken zorlandım. Console.SetCursorPosition kullandım. Çünkü öteki türlü duvarlar eksik kalıyordu ve oyuncular dışarı çıkıyordu. Console.SetCursorPositionda ise
-             * oyun alanı konsoldan daha büyük olduğundan hata veriyordu. O yüzden bu kodları ekledim. Hocaya kullanıp kullanamayacağımızı sorabiliriz. Kodu bu haliyle atıyorum.
-             * Koda opsiyonel olarak extra ekleme yaparım. Mesela duvar boyutu sürekli değişsin mi değişmesin mi diye kullanıcı mod sorup ona göre seçenek sunmak gibi. SetCursorPositiondan
-             * sonra mavi-nötr-kırmızı alan ayrımını yazdıramadım. Renk olarak araştıracağım.
-             */
 
             Console.OutputEncoding = Encoding.UTF8;
 
@@ -30,6 +25,7 @@ namespace PBL_Eda
             Console.CursorVisible = false;
 
             Random random = new Random();
+
             //x coordinates of players and walls
             int blueThrowerX = 0;
             int blueThrowerY = 0;
@@ -55,7 +51,7 @@ namespace PBL_Eda
             //round
             int round = 0;
 
-            /*Is players on the game*/
+            //is players on the game
             bool isBlueThrowerOntheGame = true;
             bool isRedThrowerOntheGame = true;
             bool isBlueSnowman1OntheGame = true;
@@ -69,24 +65,21 @@ namespace PBL_Eda
             {
 
                 //frame
+
                 Console.Clear();
-                /*for (int starRow = 0; starRow < 42; starRow++)
+
+                for (int i = 0; i < 41; i++)
                 {
-                    for (int starColumn = 0; starColumn < 122; starColumn++)
-                    {
-                        if (starRow == 0 || starRow == 41 || starColumn == 0 || starColumn == 121)
-                        {
-                            Console.Write("#");
-                        }
-                        else
-                        {
-                            Console.Write(" ");
-                        }
-                    }
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.Write("                                         ");
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.Write("                                        ");
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.Write("                                        ");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.Write("");
                     Console.WriteLine();
                 }
-
-                */
 
                 for (int a = 0; a < 122; a++)
                 {
@@ -104,36 +97,8 @@ namespace PBL_Eda
                     Console.Write("#");
                 }
 
-                /*//zones
-                for (int starColumn = 0; starColumn < 121; starColumn++)
-                {
-                    if (starColumn == 40)
-                    {
-                        Console.Write("B");
-                    }
-                    else if (starColumn == 41 || starColumn == 81)
-                    {
-                        Console.Write("|");
-                    }
-                    else if (starColumn == 42 || starColumn == 80)
-                    {
-                        Console.Write("N");
-                    }
-                    else if (starColumn == 82)
-                    {
-                        Console.Write("R");
-                    }
-                    else
-                    {
-                        Console.Write(" ");
-                    }
-                }
-                Console.WriteLine();*/
-
                 //wind
                 double windSpeed = random.NextDouble() * 4 - 2;
-
-
 
                 if (round % 3 == 0)
                 {
@@ -161,53 +126,158 @@ namespace PBL_Eda
                     lengthWall1 = random.Next(3, 7);
                     lengthWall2 = random.Next(3, 7);
 
-
-
                 }
+
                 //bunu ekstradan ekledim çünkü oyun bitince yeni turda duvarlar vs çizilmemiş oluyordu
 
-                if (blueThrowerX > 0) { Console.SetCursorPosition(blueThrowerX, blueThrowerY); Console.Write(">"); }
-                if (redThrowerX > 0) { Console.SetCursorPosition(redThrowerX, redThrowerY); Console.Write("<"); }
+                if (blueThrowerX > 0)
+                {
+                    Console.SetCursorPosition(blueThrowerX, blueThrowerY);
+                    Console.Write(">");
+                }
 
-                if (isBlueSnowman1OntheGame) { Console.SetCursorPosition(blueSnowman1X, blueSnowman1Y); Console.Write("A"); }
-                if (isBlueSnowman2OntheGame) { Console.SetCursorPosition(blueSnowman2X, blueSnowman2Y); Console.Write("B"); }
-                if (isRedSnowman1OntheGame) { Console.SetCursorPosition(redSnowman1X, redSnowman1Y); Console.Write("C"); }
-                if (isRedSnowman2OntheGame) { Console.SetCursorPosition(redSnowman2X, redSnowman2Y); Console.Write("D"); }
+                if (redThrowerX > 0)
+                {
+                    Console.SetCursorPosition(redThrowerX, redThrowerY);
+                    Console.Write("<");
+                }
+
+                if (isBlueSnowman1OntheGame)
+                {
+                    Console.SetCursorPosition(blueSnowman1X, blueSnowman1Y);
+                    Console.Write("A");
+                }
+
+                if (isBlueSnowman2OntheGame)
+                {
+                    Console.SetCursorPosition(blueSnowman2X, blueSnowman2Y);
+                    Console.Write("B");
+                }
+
+                if (isRedSnowman1OntheGame)
+                {
+                    Console.SetCursorPosition(redSnowman1X, redSnowman1Y);
+                    Console.Write("C");
+                }
+
+                if (isRedSnowman2OntheGame)
+                {
+                    Console.SetCursorPosition(redSnowman2X, redSnowman2Y);
+                    Console.Write("D");
+                }
 
                 // walls (yeniden çizmek istersen – opsiyonel, ama flicker yoksa iyi olur)
-                for (int i = 0; i < lengthWall1; i++) { int wy = wall1Y + i; if (wy <= 41) { Console.SetCursorPosition(wall1X, wy); Console.Write("#"); } }
-                for (int i = 0; i < lengthWall2; i++) { int wy = wall2Y + i; if (wy <= 41) { Console.SetCursorPosition(wall2X, wy); Console.Write("#"); } }
-
-
-                Console.SetCursorPosition(1, 42);
-                Console.WriteLine();
-                Console.Write("Enter velocity (5 - 25): ");
-                double velocity;
-                while (!double.TryParse(Console.ReadLine(), out velocity) || velocity < 5 || velocity > 25)
+                for (int i = 0; i < lengthWall1; i++)
                 {
-                    Console.Write("Invalid input. Enter velocity (5 - 25): ");
+                    int wy = wall1Y + i; if (wy <= 41)
+                    {
+                        Console.SetCursorPosition(wall1X, wy);
+                        Console.Write("#");
+                    }
                 }
 
-                Console.Write("Enter angle (5 - 85 degrees): ");
-                double angle;
-                while (!double.TryParse(Console.ReadLine(), out angle) || angle < 5 || angle > 85)
+                for (int i = 0; i < lengthWall2; i++)
                 {
-                    Console.Write("Invalid input. Enter angle (5 - 85): ");
+                    int wy = wall2Y + i;
+                    if (wy <= 41)
+                    {
+                        Console.SetCursorPosition(wall2X, wy); Console.Write("#");
+                    }
                 }
 
+                // Velocity input
+                double velocity = 0;
+                bool validVelocity = false;
 
-                Console.WriteLine();
-                Console.WriteLine("Round: " + (round + 1));
-                Console.WriteLine("Wind: " + windSpeed);
-                Console.WriteLine("Velocity: " + velocity);
-                Console.WriteLine("Angle: " + angle);
-                Console.WriteLine("Press any key to continue...");
+                while (!validVelocity)
+                {
+                    Console.SetCursorPosition(124, 3);
+                    Console.Write("Enter velocity (5 - 25):     ");
+                    Console.SetCursorPosition(124, 4);
+                    Console.Write("                              ");
+                    Console.SetCursorPosition(124, 4);
+
+                    try
+                    {
+                        velocity = Convert.ToDouble(Console.ReadLine());
+                        if (velocity >= 5 && velocity <= 25)
+                        {
+                            validVelocity = true;
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(124, 5);
+                            Console.Write("Invalid input. Enter velocity (5 - 25):     ");
+                        }
+                    }
+                    catch
+                    {
+                        Console.SetCursorPosition(124, 5);
+                        Console.Write("Invalid input. Enter velocity (5 - 25):     ");
+                    }
+                }
+
+                // Angle input
+                double angle = 0;
+                bool validAngle = false;
+
+                while (!validAngle)
+                {
+                    Console.SetCursorPosition(124, 7);
+                    Console.Write("Enter angle (-85 - 85 degrees):    ");
+                    Console.SetCursorPosition(124, 8);
+                    Console.Write("                                   ");
+                    Console.SetCursorPosition(124, 8);
+
+                    try
+                    {
+                        angle = Convert.ToDouble(Console.ReadLine());
+                        if (angle >= -85 && angle <= 85)
+                        {
+                            validAngle = true;
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(124, 9);
+                            Console.Write("Invalid input. Enter angle (-85 - 85):      ");
+                        }
+                    }
+                    catch
+                    {
+                        Console.SetCursorPosition(124, 9);
+                        Console.Write("Invalid input. Enter angle (-85 - 85):      ");
+                    }
+                }
+
+                Console.SetCursorPosition(124, 11);
+                Console.Write("Round: " + (round + 1) + "   ");
+                Console.SetCursorPosition(124, 12);
+                Console.Write("Wind: " + windSpeed.ToString("0.00") + "   ");
+                Console.SetCursorPosition(124, 13);
+                Console.Write("Velocity: " + velocity + "   ");
+                Console.SetCursorPosition(124, 14);
+                Console.Write("Angle: " + angle + "   ");
+                Console.SetCursorPosition(124, 15);
+                Console.Write("Turn: " + "blue" + "   ");
+                Console.SetCursorPosition(124, 16);
+                Console.Write("Press any key to continue...");
 
 
                 // atışı kimin yaptığına karar veriyoruz burada (çift round olursa blue tek olursa red yani sırayla)
-                bool blueShoots = (round % 2 == 0);
-                int startX = blueShoots ? blueThrowerX : redThrowerX;
-                int startY = blueShoots ? blueThrowerY : redThrowerY;
+                bool blueShoots = true;
+                int startX;
+                int startY;
+
+                if (blueShoots)
+                {
+                    startX = blueThrowerX;
+                    startY = blueThrowerY;
+                }
+                else
+                {
+                    startX = redThrowerX;
+                    startY = redThrowerY;
+                }
 
                 // başlangıc icin hız bileşenleri oluşturdum
                 double rad = angle * Math.PI / 180.0;
@@ -224,7 +294,7 @@ namespace PBL_Eda
                 int maxSteps = 1000;
                 bool hitSomething = false;
 
-                // izi oluşturmak için döngü en mantıklısı geldi
+                // sıradaki oyuncu atışı
                 for (int step = 0; step < maxSteps; step++)
                 {
                     if (step == 0)
@@ -267,7 +337,6 @@ namespace PBL_Eda
                         Console.SetCursorPosition(2, 3);
                         Console.Write("Hit: Blue B ");
                         hitSomething = true;
-
                         break;
                     }
                     if (px == redSnowman1X && py == redSnowman1Y && isRedSnowman1OntheGame)
@@ -309,6 +378,180 @@ namespace PBL_Eda
                     y += vy * dt;
 
                     System.Threading.Thread.Sleep(8);
+                }
+
+                round++;
+
+                // Velocity (Red thrower)
+                double velocity2 = 0;
+                bool validVelocity2 = false;
+
+                while (!validVelocity2)
+                {
+                    Console.SetCursorPosition(124, 17);
+                    Console.Write("Enter velocity (5 - 25):     ");
+                    Console.SetCursorPosition(124, 18);
+                    Console.Write("                              ");
+                    Console.SetCursorPosition(124, 18);
+
+                    try
+                    {
+                        velocity2 = Convert.ToDouble(Console.ReadLine());
+                        if (velocity2 >= 5 && velocity2 <= 25)
+                        {
+                            validVelocity2 = true;
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(124, 19);
+                            Console.Write("Invalid input. Enter velocity (5 - 25):     ");
+                        }
+                    }
+                    catch
+                    {
+                        Console.SetCursorPosition(124, 19);
+                        Console.Write("Invalid input. Enter velocity (5 - 25):     ");
+                    }
+                }
+
+                // Angle (Red thrower)
+                double angle2 = 0;
+                bool validAngle2 = false;
+
+                while (!validAngle2)
+                {
+                    Console.SetCursorPosition(124, 21);
+                    Console.Write("Enter angle (-85 - 85 degrees):    ");
+                    Console.SetCursorPosition(124, 22);
+                    Console.Write("                                   ");
+                    Console.SetCursorPosition(124, 22);
+
+                    try
+                    {
+                        angle2 = Convert.ToDouble(Console.ReadLine());
+                        if (angle2 >= -85 && angle2 <= 85)
+                        {
+                            validAngle2 = true;
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(124, 23);
+                            Console.Write("Invalid input. Enter angle (-85 - 85):      ");
+                        }
+                    }
+                    catch
+                    {
+                        Console.SetCursorPosition(124, 23);
+                        Console.Write("Invalid input. Enter angle (-85 - 85):      ");
+                    }
+                }
+
+                // Info (top-right)
+                Console.SetCursorPosition(124, 25);
+                Console.Write("Round: " + (round) + "   ");
+                Console.SetCursorPosition(124, 26);
+                Console.Write("Wind: " + windSpeed.ToString("0.00") + "   ");
+                Console.SetCursorPosition(124, 27);
+                Console.Write("Velocity: " + velocity2 + "   ");
+                Console.SetCursorPosition(124, 28);
+                Console.Write("Angle: " + angle2 + "   ");
+                Console.SetCursorPosition(124, 29);
+                Console.Write("Turn: " + "red" + "   ");
+                Console.SetCursorPosition(124, 30);
+                Console.Write("Press any key to continue...");
+
+                double rad2 = angle2 * Math.PI / 180.0;
+                double vx2 = -1 * velocity2 * Math.Cos(rad2); // sağdaki sola atar
+                double vy2 = -velocity2 * Math.Sin(rad2);
+
+                double x2 = redThrowerX;
+                double y2 = redThrowerY;
+                bool hitSomething2 = false;
+
+                for (int step = 0; step < maxSteps; step++)
+                {
+                    if (step == 0)
+                    {
+                        x2 += vx2 * dt;
+                        y2 += vy2 * dt;
+                    }
+
+                    int px2 = (int)Math.Round(x2);
+                    int py2 = (int)Math.Round(y2);
+
+                    if (px2 < 1 || px2 > 120 || py2 < 1 || py2 > 40) break;
+
+                    Console.SetCursorPosition(px2, py2);
+                    Console.Write("o");
+
+                    bool hitWall2 =
+                        (px2 == wall1X && py2 >= wall1Y && py2 < wall1Y + lengthWall1) ||
+                        (px2 == wall2X && py2 >= wall2Y && py2 < wall2Y + lengthWall2);
+
+                    if (hitWall2)
+                    {
+                        Console.SetCursorPosition(2, 2);
+                        Console.Write("Hit: Wall   ");
+                        hitSomething2 = true;
+                        break;
+                    }
+
+                    if (px2 == blueSnowman1X && py2 == blueSnowman1Y && isBlueSnowman1OntheGame)
+                    {
+                        isBlueSnowman1OntheGame = false;
+                        Console.SetCursorPosition(2, 3);
+                        Console.Write("Hit: Blue A ");
+                        hitSomething2 = true;
+                        break;
+                    }
+                    if (px2 == blueSnowman2X && py2 == blueSnowman2Y && isBlueSnowman2OntheGame)
+                    {
+                        isBlueSnowman2OntheGame = false;
+                        Console.SetCursorPosition(2, 3);
+                        Console.Write("Hit: Blue B ");
+                        hitSomething2 = true;
+                        break;
+                    }
+                    if (px2 == redSnowman1X && py2 == redSnowman1Y && isRedSnowman1OntheGame)
+                    {
+                        isRedSnowman1OntheGame = false;
+                        Console.SetCursorPosition(2, 3);
+                        Console.Write("Hit: Red C  ");
+                        hitSomething2 = true;
+                        break;
+                    }
+                    if (px2 == redSnowman2X && py2 == redSnowman2Y && isRedSnowman2OntheGame)
+                    {
+                        isRedSnowman2OntheGame = false;
+                        Console.SetCursorPosition(2, 3);
+                        Console.Write("Hit: Red D  ");
+                        hitSomething2 = true;
+                        break;
+                    }
+
+                    if (step > 0 && px2 == blueThrowerX && py2 == blueThrowerY && isBlueThrowerOntheGame)
+                    {
+                        Console.SetCursorPosition(2, 4);
+                        Console.Write("Hit: Blue Thrower (rest next turn)  ");
+                        hitSomething2 = true;
+                        break;
+                    }
+                    if (step > 0 && px2 == redThrowerX && py2 == redThrowerY && isRedThrowerOntheGame)
+                    {
+                        Console.SetCursorPosition(2, 4);
+                        Console.Write("Hit: Red Thrower (rest next turn)   ");
+                        hitSomething2 = true;
+                        break;
+                    }
+
+                    vx2 += ax * dt;
+                    vy2 += g * dt;
+
+                    x2 += vx2 * dt;
+                    y2 += vy2 * dt;
+
+                    System.Threading.Thread.Sleep(8);
+
                 }
 
 
