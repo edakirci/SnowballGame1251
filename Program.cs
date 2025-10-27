@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LAB4_GROUP5_2021510130_2023510239_2023510038
@@ -15,8 +16,8 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
 
             try
             {
-                Console.SetWindowSize(130, 45);
-                Console.SetBufferSize(130, 45);
+                Console.SetBufferSize(130, 48);
+                Console.SetWindowSize(130, 48);
             }
             catch
             {
@@ -59,6 +60,18 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
             bool isRedSnowman1OntheGame = true;
             bool isRedSnowman2OntheGame = true;
 
+            Console.WriteLine("     SNOWBALL GAME       ");
+            Console.WriteLine("Blue Team vs. Red Team");
+            Console.WriteLine();
+            Console.WriteLine("             MENU              ");
+            Console.WriteLine("Select the mode you want to play:");
+            Console.WriteLine("1) Wall lengths should change every three rounds.");
+            Console.WriteLine("2) Wall lengths should remain constant throughout all rounds.");
+            Console.Write("Your choice: ");
+            int mode = Convert.ToInt16(Console.ReadLine());
+
+            int lengthWall1Value = random.Next(3, 7);
+            int lengthWall2Value = random.Next(3, 7);
 
 
             while ((isBlueSnowman1OntheGame || isBlueSnowman2OntheGame) && (isRedSnowman1OntheGame || isRedSnowman2OntheGame))
@@ -122,9 +135,21 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                     wall1Y = random.Next(1, 40);
                     wall2Y = random.Next(1, 40);
 
-                    //lenght of the walls
-                    lengthWall1 = random.Next(3, 7);
-                    lengthWall2 = random.Next(3, 7);
+                    switch (mode)
+                    {
+                        case 1:
+                            //lenght of the walls
+                            lengthWall1 = random.Next(3, 7);
+                            lengthWall2 = random.Next(3, 7);
+                            break;
+                        case 2:
+                            //lenght of the walls
+                            lengthWall1 = lengthWall1Value;
+                            lengthWall2 = lengthWall2Value;
+                            break;
+
+                    }
+
 
                 }
 
@@ -191,29 +216,36 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
 
                 while (!validVelocity)
                 {
-                    Console.SetCursorPosition(124, 3);
-                    Console.Write("Enter velocity (5 - 25):     ");
-                    Console.SetCursorPosition(124, 4);
-                    Console.Write("                              ");
-                    Console.SetCursorPosition(124, 4);
+                    Console.SetCursorPosition(1, 42);
+                    Console.Write(new string(' ', 60));
+                    Console.SetCursorPosition(1, 42);
+                    Console.Write("Enter velocity (5 - 25): ");
+
+                    string input = Console.ReadLine();
 
                     try
                     {
-                        velocity = Convert.ToDouble(Console.ReadLine());
+                        velocity = Convert.ToDouble(input);
                         if (velocity >= 5 && velocity <= 25)
                         {
                             validVelocity = true;
                         }
                         else
                         {
-                            Console.SetCursorPosition(124, 5);
-                            Console.Write("Invalid input. Enter velocity (5 - 25):     ");
+                            Console.SetCursorPosition(33, 42);
+                            Console.Write("Invalid input! Try again...");
+                            Thread.Sleep(800);
+                            Console.SetCursorPosition(33, 42);
+                            Console.Write(new string(' ', 50));
                         }
                     }
                     catch
                     {
-                        Console.SetCursorPosition(124, 5);
-                        Console.Write("Invalid input. Enter velocity (5 - 25):     ");
+                        Console.SetCursorPosition(33, 42);
+                        Console.Write("Invalid input! Try again...");
+                        Thread.Sleep(800);
+                        Console.SetCursorPosition(33, 42);
+                        Console.Write(new string(' ', 50));
                     }
                 }
 
@@ -223,11 +255,10 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
 
                 while (!validAngle)
                 {
-                    Console.SetCursorPosition(124, 7);
-                    Console.Write("Enter angle (-85 - 85 degrees):    ");
-                    Console.SetCursorPosition(124, 8);
-                    Console.Write("                                   ");
-                    Console.SetCursorPosition(124, 8);
+                    Console.SetCursorPosition(1, 43);
+                    Console.Write(new string(' ', 60));
+                    Console.SetCursorPosition(1, 43);
+                    Console.Write("Enter Angle (-85 - 85): ");
 
                     try
                     {
@@ -238,28 +269,34 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                         }
                         else
                         {
-                            Console.SetCursorPosition(124, 9);
+                            Console.SetCursorPosition(33, 43);
                             Console.Write("Invalid input. Enter angle (-85 - 85):      ");
+                            Thread.Sleep(800);
+                            Console.SetCursorPosition(33, 43);
+                            Console.Write(new string(' ', 50));
                         }
                     }
                     catch
                     {
-                        Console.SetCursorPosition(124, 9);
+                        Console.SetCursorPosition(33, 43);
                         Console.Write("Invalid input. Enter angle (-85 - 85):      ");
+                        Thread.Sleep(800);
+                        Console.SetCursorPosition(33, 43);
+                        Console.Write(new string(' ', 50));
                     }
                 }
 
-                Console.SetCursorPosition(124, 11);
+                Console.SetCursorPosition(124, 1);
                 Console.Write("Round: " + (round + 1) + "   ");
-                Console.SetCursorPosition(124, 12);
+                Console.SetCursorPosition(124, 2);
                 Console.Write("Wind: " + windSpeed.ToString("0.00") + "   ");
-                Console.SetCursorPosition(124, 13);
+                Console.SetCursorPosition(124, 3);
                 Console.Write("Velocity: " + velocity + "   ");
-                Console.SetCursorPosition(124, 14);
+                Console.SetCursorPosition(124, 4);
                 Console.Write("Angle: " + angle + "   ");
-                Console.SetCursorPosition(124, 15);
+                Console.SetCursorPosition(124, 5);
                 Console.Write("Turn: " + "blue" + "   ");
-                Console.SetCursorPosition(124, 16);
+                Console.SetCursorPosition(124, 6);
                 Console.Write("Press any key to continue...");
 
 
@@ -281,15 +318,14 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
 
                 // başlangıc icin hız bileşenleri oluşturdum
                 double rad = angle * Math.PI / 180.0;
-                int dir = blueShoots ? +1 : -1;           // blue sağa red sola atıyor yerlerinden dolayı
-                double vx = dir * velocity * Math.Cos(rad);
+                double vx = velocity * Math.Cos(rad);
                 double vy = -velocity * Math.Sin(rad);
 
                 double g = 1.0;
                 double ax = windSpeed;
-                double dt = 0.10;
+                double dt = Math.Max(0.02, 0.10 - (velocity / 250));
 
-                double x = startX;
+                double x = startX + 1;
                 double y = startY;
                 int maxSteps = 1000;
                 bool hitSomething = false;
@@ -306,7 +342,10 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                     int px = (int)Math.Round(x);
                     int py = (int)Math.Round(y);
 
-                    if (px < 1 || px > 120 || py < 1 || py > 40) break;
+                    if (px < 1 || px > 120 || py < 1 || py > 40)
+                    {
+                        break;
+                    }
 
                     Console.SetCursorPosition(px, py);
                     Console.Write("o");
@@ -377,10 +416,61 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                     x += vx * dt;
                     y += vy * dt;
 
-                    System.Threading.Thread.Sleep(8);
+                    System.Threading.Thread.Sleep(15); // 1 yerine biraz yavaş
+
                 }
 
+                // --- RED SHOT DONE: show trace until a key is pressed ---
+                Console.SetCursorPosition(124, 16);
+                Console.Write("Blue shot done. Press any key...");
+                Console.ReadKey(true);   // kullanıcı bastığında sonraki round’a geçer
+
+                // === CLEAR TRACE BEFORE RED TURN ===
+                // Mavi atışın izini temizle ve aynı round'un yerleşimiyle sahneyi yeniden çiz
+                Console.Clear();
+
+                // 1) Zemin bantları
+                for (int i = 0; i < 41; i++)
+                {
+                    Console.BackgroundColor = ConsoleColor.Blue; Console.Write("                                         ");
+                    Console.BackgroundColor = ConsoleColor.White; Console.Write("                                        ");
+                    Console.BackgroundColor = ConsoleColor.Red; Console.Write("                                        ");
+                    Console.BackgroundColor = ConsoleColor.Black; Console.Write("");
+                    Console.WriteLine();
+                }
+
+                // 2) Kenarlıklar
+                for (int a = 0; a < 122; a++)
+                {
+                    Console.SetCursorPosition(a, 0); Console.Write("#");
+                    Console.SetCursorPosition(a, 41); Console.Write("#");
+                }
+                for (int b = 0; b < 42; b++)
+                {
+                    Console.SetCursorPosition(0, b); Console.Write("#");
+                    Console.SetCursorPosition(121, b); Console.Write("#");
+                }
+
+                // 3) Oyuncular (varsa)
+                if (blueThrowerX > 0) { Console.SetCursorPosition(blueThrowerX, blueThrowerY); Console.Write(">"); }
+                if (redThrowerX > 0) { Console.SetCursorPosition(redThrowerX, redThrowerY); Console.Write("<"); }
+
+                if (isBlueSnowman1OntheGame) { Console.SetCursorPosition(blueSnowman1X, blueSnowman1Y); Console.Write("A"); }
+                if (isBlueSnowman2OntheGame) { Console.SetCursorPosition(blueSnowman2X, blueSnowman2Y); Console.Write("B"); }
+                if (isRedSnowman1OntheGame) { Console.SetCursorPosition(redSnowman1X, redSnowman1Y); Console.Write("C"); }
+                if (isRedSnowman2OntheGame) { Console.SetCursorPosition(redSnowman2X, redSnowman2Y); Console.Write("D"); }
+
+                // 4) Duvarlar
+                for (int i = 0; i < lengthWall1; i++) { int wy = wall1Y + i; if (wy <= 41) { Console.SetCursorPosition(wall1X, wy); Console.Write("#"); } }
+                for (int i = 0; i < lengthWall2; i++) { int wy = wall2Y + i; if (wy <= 41) { Console.SetCursorPosition(wall2X, wy); Console.Write("#"); } }
+
+                // 5) Sağ üst bilgilendirme (aynı round & rüzgâr)
+                Console.SetCursorPosition(124, 1); Console.Write("Round: " + (round + 1) + "   ");
+                Console.SetCursorPosition(124, 2); Console.Write("Wind: " + windSpeed.ToString("0.00") + "   ");
+                Console.SetCursorPosition(124, 3); Console.Write("Turn: red   ");
+
                 round++;
+
 
                 // Velocity (Red thrower)
                 double velocity2 = 0;
@@ -388,11 +478,10 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
 
                 while (!validVelocity2)
                 {
-                    Console.SetCursorPosition(124, 17);
-                    Console.Write("Enter velocity (5 - 25):     ");
-                    Console.SetCursorPosition(124, 18);
-                    Console.Write("                              ");
-                    Console.SetCursorPosition(124, 18);
+                    Console.SetCursorPosition(1, 44);
+                    Console.Write(new string(' ', 60));
+                    Console.SetCursorPosition(1, 44);
+                    Console.Write("Enter velocity (5 - 25): ");
 
                     try
                     {
@@ -403,14 +492,20 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                         }
                         else
                         {
-                            Console.SetCursorPosition(124, 19);
-                            Console.Write("Invalid input. Enter velocity (5 - 25):     ");
+                            Console.SetCursorPosition(33, 44);
+                            Console.Write("Invalid input! Try again...");
+                            Thread.Sleep(800);
+                            Console.SetCursorPosition(33, 44);
+                            Console.Write(new string(' ', 50));
                         }
                     }
                     catch
                     {
-                        Console.SetCursorPosition(124, 19);
-                        Console.Write("Invalid input. Enter velocity (5 - 25):     ");
+                        Console.SetCursorPosition(33, 44);
+                        Console.Write("Invalid input! Try again...");
+                        Thread.Sleep(800);
+                        Console.SetCursorPosition(33, 44);
+                        Console.Write(new string(' ', 50));
                     }
                 }
 
@@ -420,11 +515,14 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
 
                 while (!validAngle2)
                 {
-                    Console.SetCursorPosition(124, 21);
-                    Console.Write("Enter angle (-85 - 85 degrees):    ");
-                    Console.SetCursorPosition(124, 22);
-                    Console.Write("                                   ");
-                    Console.SetCursorPosition(124, 22);
+                    // RED input
+                    Console.SetCursorPosition(1, 44);  
+                    Console.Write(new string(' ', 60));
+                    Console.SetCursorPosition(1, 44);
+                    Console.Write("Enter Angle (-85 - 85): ");
+
+                    Console.SetCursorPosition(33, 44); 
+
 
                     try
                     {
@@ -435,36 +533,42 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                         }
                         else
                         {
-                            Console.SetCursorPosition(124, 23);
+                            Console.SetCursorPosition(33, 45);
                             Console.Write("Invalid input. Enter angle (-85 - 85):      ");
+                            Thread.Sleep(800);
+                            Console.SetCursorPosition(33, 45);
+                            Console.Write(new string(' ', 50));
                         }
                     }
                     catch
                     {
-                        Console.SetCursorPosition(124, 23);
+                        Console.SetCursorPosition(33, 45);
                         Console.Write("Invalid input. Enter angle (-85 - 85):      ");
+                        Thread.Sleep(800);
+                        Console.SetCursorPosition(33, 45);
+                        Console.Write(new string(' ', 50));
                     }
                 }
 
                 // Info (top-right)
-                Console.SetCursorPosition(124, 25);
+                Console.SetCursorPosition(124, 10);
                 Console.Write("Round: " + (round) + "   ");
-                Console.SetCursorPosition(124, 26);
+                Console.SetCursorPosition(124, 11);
                 Console.Write("Wind: " + windSpeed.ToString("0.00") + "   ");
-                Console.SetCursorPosition(124, 27);
+                Console.SetCursorPosition(124, 12);
                 Console.Write("Velocity: " + velocity2 + "   ");
-                Console.SetCursorPosition(124, 28);
+                Console.SetCursorPosition(124, 13);
                 Console.Write("Angle: " + angle2 + "   ");
-                Console.SetCursorPosition(124, 29);
+                Console.SetCursorPosition(124, 14);
                 Console.Write("Turn: " + "red" + "   ");
-                Console.SetCursorPosition(124, 30);
+                Console.SetCursorPosition(124, 15);
                 Console.Write("Press any key to continue...");
 
                 double rad2 = angle2 * Math.PI / 180.0;
                 double vx2 = -1 * velocity2 * Math.Cos(rad2); // sağdaki sola atar
                 double vy2 = -velocity2 * Math.Sin(rad2);
 
-                double x2 = redThrowerX;
+                double x2 = redThrowerX - 1;
                 double y2 = redThrowerY;
                 bool hitSomething2 = false;
 
@@ -550,7 +654,7 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                     x2 += vx2 * dt;
                     y2 += vy2 * dt;
 
-                    System.Threading.Thread.Sleep(8);
+                    System.Threading.Thread.Sleep(1);
 
                 }
 
