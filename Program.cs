@@ -158,36 +158,48 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                 if (blueThrowerX > 0)
                 {
                     Console.SetCursorPosition(blueThrowerX, blueThrowerY);
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write(">");
                 }
 
                 if (redThrowerX > 0)
                 {
                     Console.SetCursorPosition(redThrowerX, redThrowerY);
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("<");
                 }
 
                 if (isBlueSnowman1OntheGame)
                 {
                     Console.SetCursorPosition(blueSnowman1X, blueSnowman1Y);
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("A");
                 }
 
                 if (isBlueSnowman2OntheGame)
                 {
                     Console.SetCursorPosition(blueSnowman2X, blueSnowman2Y);
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("B");
                 }
 
                 if (isRedSnowman1OntheGame)
                 {
                     Console.SetCursorPosition(redSnowman1X, redSnowman1Y);
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("C");
                 }
 
                 if (isRedSnowman2OntheGame)
                 {
                     Console.SetCursorPosition(redSnowman2X, redSnowman2Y);
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("D");
                 }
 
@@ -197,6 +209,8 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                     int wy = wall1Y + i; if (wy <= 41)
                     {
                         Console.SetCursorPosition(wall1X, wy);
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
                         Console.Write("#");
                     }
                 }
@@ -206,9 +220,15 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                     int wy = wall2Y + i;
                     if (wy <= 41)
                     {
-                        Console.SetCursorPosition(wall2X, wy); Console.Write("#");
+                        Console.SetCursorPosition(wall2X, wy);
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("#");
                     }
                 }
+
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
 
                 // Velocity input
                 double velocity = 0;
@@ -348,7 +368,18 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                     }
 
                     Console.SetCursorPosition(px, py);
+
+                    if (px < 41)
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                    else if (px < 81)
+                        Console.BackgroundColor = ConsoleColor.White;
+                    else
+                        Console.BackgroundColor = ConsoleColor.Red;
+
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("o");
+
+                    Console.ResetColor();
 
                     bool hitWall =
                         (px == wall1X && py >= wall1Y && py < wall1Y + lengthWall1) ||
@@ -452,17 +483,74 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                 }
 
                 // 3) Oyuncular (varsa)
-                if (blueThrowerX > 0) { Console.SetCursorPosition(blueThrowerX, blueThrowerY); Console.Write(">"); }
-                if (redThrowerX > 0) { Console.SetCursorPosition(redThrowerX, redThrowerY); Console.Write("<"); }
+                if (blueThrowerX > 0)
+                {
+                    Console.SetCursorPosition(blueThrowerX, blueThrowerY);
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write(">");
+                }
+                if (redThrowerX > 0)
+                {
+                    Console.SetCursorPosition(redThrowerX, redThrowerY);
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("<");
+                }
 
-                if (isBlueSnowman1OntheGame) { Console.SetCursorPosition(blueSnowman1X, blueSnowman1Y); Console.Write("A"); }
-                if (isBlueSnowman2OntheGame) { Console.SetCursorPosition(blueSnowman2X, blueSnowman2Y); Console.Write("B"); }
-                if (isRedSnowman1OntheGame) { Console.SetCursorPosition(redSnowman1X, redSnowman1Y); Console.Write("C"); }
-                if (isRedSnowman2OntheGame) { Console.SetCursorPosition(redSnowman2X, redSnowman2Y); Console.Write("D"); }
+                if (isBlueSnowman1OntheGame)
+                {
+                    Console.SetCursorPosition(blueSnowman1X, blueSnowman1Y);
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("A");
+                }
+                if (isBlueSnowman2OntheGame)
+                {
+                    Console.SetCursorPosition(blueSnowman2X, blueSnowman2Y);
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("B");
+                }
+                if (isRedSnowman1OntheGame)
+                {
+                    Console.SetCursorPosition(redSnowman1X, redSnowman1Y);
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("C");
+                }
+                if (isRedSnowman2OntheGame)
+                {
+                    Console.SetCursorPosition(redSnowman2X, redSnowman2Y);
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("D");
+                }
 
                 // 4) Duvarlar
-                for (int i = 0; i < lengthWall1; i++) { int wy = wall1Y + i; if (wy <= 41) { Console.SetCursorPosition(wall1X, wy); Console.Write("#"); } }
-                for (int i = 0; i < lengthWall2; i++) { int wy = wall2Y + i; if (wy <= 41) { Console.SetCursorPosition(wall2X, wy); Console.Write("#"); } }
+                for (int i = 0; i < lengthWall1; i++)
+                {
+                    int wy = wall1Y + i; if (wy <= 41)
+                    {
+                        Console.SetCursorPosition(wall1X, wy);
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("#");
+                    }
+                }
+                for (int i = 0; i < lengthWall2; i++)
+                {
+                    int wy = wall2Y + i; if (wy <= 41)
+                    {
+                        Console.SetCursorPosition(wall2X, wy);
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.Write("#");
+                    }
+                }
+
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
 
                 // 5) Sağ üst bilgilendirme (aynı round & rüzgâr)
                 Console.SetCursorPosition(124, 1); Console.Write("Round: " + (round + 1) + "   ");
@@ -516,12 +604,12 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                 while (!validAngle2)
                 {
                     // RED input
-                    Console.SetCursorPosition(1, 44);  
+                    Console.SetCursorPosition(1, 44);
                     Console.Write(new string(' ', 60));
                     Console.SetCursorPosition(1, 44);
                     Console.Write("Enter Angle (-85 - 85): ");
 
-                    Console.SetCursorPosition(33, 44); 
+                    Console.SetCursorPosition(33, 44);
 
 
                     try
@@ -586,7 +674,18 @@ namespace LAB4_GROUP5_2021510130_2023510239_2023510038
                     if (px2 < 1 || px2 > 120 || py2 < 1 || py2 > 40) break;
 
                     Console.SetCursorPosition(px2, py2);
+
+                    if (px2 < 41)
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                    else if (px2 < 81)
+                        Console.BackgroundColor = ConsoleColor.White;
+                    else
+                        Console.BackgroundColor = ConsoleColor.Red;
+
+                    Console.ForegroundColor = ConsoleColor.Black;
                     Console.Write("o");
+
+                    Console.ResetColor();
 
                     bool hitWall2 =
                         (px2 == wall1X && py2 >= wall1Y && py2 < wall1Y + lengthWall1) ||
