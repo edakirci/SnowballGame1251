@@ -39,7 +39,7 @@ Each zone has a size of **40 × 40** squares.
 - Red team occupies the right zone.
 - The center is a **neutral zone**.
 
-Two **vertical walls** are randomly placed in the neutral zone at the beginning of the game. :contentReference[oaicite:1]{index=1}
+Two **vertical walls** are randomly placed in the neutral zone at the beginning of the game. 
 
 ---
 
@@ -120,8 +120,7 @@ git clone https://github.com/edakirci/SnowballGame.git
    Build → Build Solution
 
 4.Run the project
-
-Debug → Start Without Debugging
+   Debug → Start Without Debugging
 
 ---
 # Course Information
