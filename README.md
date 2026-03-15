@@ -110,7 +110,7 @@ Below is an example of the game screen.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/edakirci/SnowballGame.git
+git clone https://github.com/edakirci/SnowballGame1251.git
 
 ```
 2. Open the project in Visual Studio
@@ -119,9 +119,9 @@ git clone https://github.com/edakirci/SnowballGame.git
 
    Build → Build Solution
 
-4.Run the project
-   
-   Debug → Start Without Debugging
+3. Run the project
+
+   Debug → Start without Debugging
 
 ---
 # Course Information
