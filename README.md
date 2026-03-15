@@ -120,6 +120,7 @@ git clone https://github.com/edakirci/SnowballGame.git
    Build → Build Solution
 
 4.Run the project
+   
    Debug → Start Without Debugging
 
 ---
